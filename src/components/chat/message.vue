@@ -111,7 +111,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 #message {
   padding: 15px;
@@ -120,9 +119,9 @@ export default {
   overflow-y: scroll;
   overflow-x: hidden;
 
-  /* 扁平化/亚克力风滚动条样式 */
+  /* 隐藏滚动条 */
   &::-webkit-scrollbar {
-    width: 0px; /* 隐藏滚动条 */
+    width: 0;
   }
   &::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.3);
@@ -162,13 +161,25 @@ export default {
       width: 30px;
       height: 30px;
     }
+    /*
+      关键点：
+      1. 设置 .text 为行内块，便于控制宽度
+      2. max-width: 70% 用于限制消息框最大宽度
+      3. white-space/word-wrap/word-break 确保自动换行不溢出
+    */
     .text {
       display: inline-block;
       padding: 0 10px;
-      max-width: 80%;
+      max-width: 70%;
       background-color: #fafafa;
       border-radius: 4px;
       line-height: 30px;
+
+      /* 自动换行核心属性 */
+      white-space: pre-wrap;        /* 保留文本的换行符，同时允许长单词换行 */
+      word-wrap: break-word;        /* 超出宽度时进行单词内断行换行 */
+      word-break: break-word;       /* 针对部分浏览器对 break-word 的兼容 */
+      overflow-wrap: break-word;    /* 兼容性补充 */
     }
     .img {
       display: inline-block;
@@ -198,8 +209,15 @@ export default {
       width: 30px;
       height: 30px;
     }
+    /* 右侧消息框也可单独设定其最大宽度与自动换行规则 */
     .text {
       background-color: #b2e281;
+      max-width: 70%; /* 同样限制自我消息宽度 */
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      text-align: left;           /* 气泡内文字左对齐，避免文字贴到右边 */
     }
     .img {
       display: inline-block;
@@ -211,7 +229,7 @@ export default {
       display: block;
       margin-top: 8px;
       width: 160px;
-      margin-left: auto; /* 右侧语音按钮对齐 */
+      margin-left: auto; /* 让语音控件靠右 */
     }
     .username {
       position: relative;
@@ -224,3 +242,4 @@ export default {
   }
 }
 </style>
+
