@@ -10,17 +10,18 @@
           class="emoBox"
       >
         <!-- 表情列表 -->
-        <div class="emotionList">
-          <a
-              href="javascript:void(0);"
-              @click="getEmo(index)"
-              v-for="(item, index) in faceList"
-              :key="index"
-              class="emotionItem"
-          >
-            {{ item }}
-          </a>
-        </div>
+        <div class="emojiList">
+          <div class="emotionList">
+            <a
+                href="javascript:void(0);"
+                @click="getEmo(index)"
+                v-for="(item, index) in faceList"
+                :key="index"
+                class="emotionItem"
+            >
+              {{ item }}
+            </a>
+          </div>
         <!-- 作为弹窗引用的按钮 -->
         <el-button id="emojiBtn" class="emotionSelect" slot="reference">
           <i class="fa fa-smile-o" aria-hidden="true"></i>
@@ -344,17 +345,26 @@ export default {
   }
 }
 
+.emojiList {
+  max-height: 130px;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 /* 表情弹窗样式 */
 .emotionList {
   display: flex;
   flex-wrap: wrap;
   padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
 }
+
 .emotionItem {
   width: 10%;
   font-size: 20px;
   text-align: center;
   text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* 自定义 el-popover 的背景和滚动条样式 */
@@ -365,7 +375,9 @@ export default {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .el-popover.emoBox::-webkit-scrollbar {
   display: none;
 }
+
 </style>
